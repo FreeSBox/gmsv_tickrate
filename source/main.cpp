@@ -54,8 +54,8 @@ namespace byte_patches {
 		// Just return 0 here, instead of jumping over in specific functions,
 		// because it's impossible to get a pattern there that will work across versions.
 		allow_blocked_concommand = memory::byte_patch::make(pointers::concommand_is_blocked, {
-			0xB0, 0x00,	// MOV AL, 0
-			0xC3		// RET
+			0x48, 0xC7, 0xC0, 0x00, 0x00, 0x00, 0x00,	// MOV RAX, 0
+			0xC3										// RET
 		}).get();
 	}
 
