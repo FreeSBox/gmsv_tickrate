@@ -13,6 +13,7 @@
 namespace pointers {
 	static void* allow_invalid_ticket{};
 	static void* allow_wrong_game{};
+	static void* allow_all_invalid_tickets{};
 
 	static void* concommand_is_blocked{};
 
@@ -23,6 +24,10 @@ namespace pointers {
 		batch.add("Steam Auth", "48 8B 95 60 FF FF FF 44", [](memory::handle ptr) {
 			allow_invalid_ticket = ptr.add(46).as<void*>();
 			allow_wrong_game = ptr.sub(27).as<void*>();
+		});
+
+		batch.add("Steam Auth 2", "48 89 C6 4C 89 EF ? ? ? ? ? EB", [](memory::handle ptr) {
+			allow_all_invalid_tickets = ptr.add(6).as<void*>();
 		});
 
 		batch.run(memory::module("engine"));
@@ -43,6 +48,8 @@ namespace pointers {
 namespace byte_patches {
 	static memory::byte_patch* allow_invalid_ticket = nullptr;
 	static memory::byte_patch* allow_wrong_game = nullptr;
+	static memory::byte_patch* allow_all_invalid_tickets = nullptr;
+
 	static memory::byte_patch* allow_blocked_concommand = nullptr;
 
 	void init_patches()
@@ -50,7 +57,8 @@ namespace byte_patches {
 		allow_invalid_ticket = memory::byte_patch::make(pointers::allow_invalid_ticket, {0xE9, 0x16, 0x00, 0x00, 0x00}).get();
 		allow_wrong_game = memory::byte_patch::make(pointers::allow_wrong_game, {0xE9, 0x5F, 0x00, 0x00, 0x00}).get();
 
-		
+		allow_all_invalid_tickets = memory::byte_patch::make(pointers::allow_all_invalid_tickets, {0x90, 0x90, 0x90, 0x90, 0x90}).get();
+
 		// Just return 0 here, instead of jumping over in specific functions,
 		// because it's impossible to get a pattern there that will work across versions.
 		allow_blocked_concommand = memory::byte_patch::make(pointers::concommand_is_blocked, {
