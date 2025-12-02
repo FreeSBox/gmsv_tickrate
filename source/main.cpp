@@ -31,13 +31,13 @@ namespace pointers {
 			allow_all_invalid_tickets = ptr.add(6).as<void*>();
 		});
 #elif ARCHITECTURE_IS_X86
-		batch.add("Steam Auth", "8D 45 A0 89 44 24 04 8B", [](memory::handle ptr) {
-			allow_invalid_ticket = ptr.sub(0x1D).as<void*>();
-			allow_wrong_game = ptr.sub(0x73).as<void*>();
+		batch.add("Steam Auth", "8B 85 78 FF FF FF C7 04", [](memory::handle ptr) {
+			allow_invalid_ticket = ptr.add(0x3F).as<void*>();
+			allow_wrong_game = ptr.sub(0x1D).as<void*>();
 		});
 
-		batch.add("Steam Auth 2", "89 44 24 08 89 5C 24 04 89 3C 24 ? ? ? ? ? E9", [](memory::handle ptr) {
-			allow_all_invalid_tickets = ptr.add(9).as<void*>();
+		batch.add("Steam Auth 2", "89 44 24 08 89 5C 24 04 89 3C 24 E8", [](memory::handle ptr) {
+			allow_all_invalid_tickets = ptr.add(11).as<void*>();
 		});
 #endif
 
@@ -72,12 +72,11 @@ namespace byte_patches {
 	void init_patches()
 	{
 #if ARCHITECTURE_IS_X86_64
-		allow_invalid_ticket = memory::byte_patch::make(pointers::allow_invalid_ticket, {0xE9, 0x16, 0x00, 0x00, 0x00}).get();
 		allow_wrong_game = memory::byte_patch::make(pointers::allow_wrong_game, {0xE9, 0x5F, 0x00, 0x00, 0x00}).get();
 #elif ARCHITECTURE_IS_X86
-		allow_invalid_ticket = memory::byte_patch::make(pointers::allow_invalid_ticket, {0xE9, 0x18, 0x00, 0x00, 0x00}).get();
-		allow_wrong_game = memory::byte_patch::make(pointers::allow_wrong_game, {0xE9, 0x6E, 0x00, 0x00, 0x00}).get();
+		allow_wrong_game = memory::byte_patch::make(pointers::allow_wrong_game, {0xE9, 0x74, 0x00, 0x00, 0x00}).get();
 #endif
+		allow_invalid_ticket = memory::byte_patch::make(pointers::allow_invalid_ticket, {0xE9, 0x18, 0x00, 0x00, 0x00}).get();
 
 		allow_all_invalid_tickets = memory::byte_patch::make(pointers::allow_all_invalid_tickets, {0x90, 0x90, 0x90, 0x90, 0x90}).get();
 
@@ -101,6 +100,8 @@ namespace byte_patches {
 	{
 		allow_invalid_ticket->apply();
 		allow_wrong_game->apply();
+		allow_all_invalid_tickets->apply();
+
 		allow_blocked_concommand->apply();
 	}
 }
