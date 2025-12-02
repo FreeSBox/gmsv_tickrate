@@ -4,6 +4,7 @@
  */
 
 #include "hooking.hpp"
+#include "pointers.hpp"
 
 #include <MinHook.h>
 
@@ -21,6 +22,8 @@ namespace gm
 		{
 			detour_hook_helper->m_detour_hook->set_target_and_create_hook(detour_hook_helper->m_on_hooking_available());
 		}
+
+		detour_hook_helper::add<hooks::ConCommand_IsBlocked>("ConCommand_IsBlocked", g_pointers->m_concommand_is_blocked);
 
 		g_hooking = this;
 	}

@@ -15,20 +15,6 @@ namespace gm
 		memory::byte_patch::make(g_pointers->m_allow_invalid_ticket, {0xE9, 0x18, 0x00, 0x00, 0x00})->apply();
 
 		memory::byte_patch::make(g_pointers->m_allow_all_invalid_tickets, {0x90, 0x90, 0x90, 0x90, 0x90})->apply();
-
-		// Just return 0 here, instead of jumping over in specific functions,
-		// because it's impossible to get a pattern there that will work across versions.
-#if ARCHITECTURE_IS_X86_64
-		memory::byte_patch::make(g_pointers->m_concommand_is_blocked, {
-			0x48, 0xC7, 0xC0, 0x00, 0x00, 0x00, 0x00,	// MOV RAX, 0
-			0xC3										// RET
-		})->apply();
-#elif ARCHITECTURE_IS_X86
-		memory::byte_patch::make(g_pointers->m_concommand_is_blocked, {
-			0xB8, 0x00, 0x00, 0x00, 0x00,	// MOV EAX, 0
-			0xC3							// RET
-		})->apply();
-#endif
 	}
 
 	byte_patch_manager::byte_patch_manager()

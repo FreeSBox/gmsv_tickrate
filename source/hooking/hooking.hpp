@@ -9,7 +9,7 @@ namespace gm
 {
 	struct hooks
 	{
-
+		static char* ConCommand_IsBlocked(char* command);
 	};
 
 	class minhook_keepalive

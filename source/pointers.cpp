@@ -48,7 +48,7 @@ namespace gm
 		});
 #endif
 
-			batch.run(memory::module("server"));
+		batch.run(memory::module("server"));
 	}
 
 	pointers::pointers()
