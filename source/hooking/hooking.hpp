@@ -99,10 +99,6 @@ namespace gm
 		bool m_enabled{};
 		minhook_keepalive m_minhook_keepalive;
 
-#ifdef ENABLE_GUI
-		WNDPROC m_og_wndproc = nullptr;
-#endif
-
 		static inline std::vector<detour_hook_helper*> m_detour_hook_helpers;
 	};
 
