@@ -20,6 +20,12 @@ GMOD_MODULE_OPEN()
 
 	byte_patch_manager_instance = std::make_unique<byte_patch_manager>();
 	Msg("Byte Patch Manager initialized.\n");
+	
+	hooking_instance = std::make_unique<hooking>();
+	Msg("Hooking initialized.\n");
+
+	g_hooking->enable();
+	Msg("Hooking enabled.\n");
 
 	return 0;
 }
@@ -27,6 +33,12 @@ GMOD_MODULE_OPEN()
 GMOD_MODULE_CLOSE()
 {
 	using namespace gm;
+
+	g_hooking->disable();
+	Msg("Hooking disabled.\n");
+
+	hooking_instance.reset();
+	Msg("Hooking uninitialized.\n");
 
 	byte_patch_manager_instance.reset();
 	Msg("Byte Patch Manager uninitialized.\n");

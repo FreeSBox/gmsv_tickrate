@@ -20,6 +20,8 @@ CreateProject({serverside = true})
 	IncludeDetouring()
 	IncludeHelpersExtended()
 	files({
+		"source/hooking/*.cpp",
+		"source/hooking/*.hpp",
 		"source/memory/*.cpp",
 		"source/memory/*.hpp"
 	})
