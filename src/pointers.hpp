@@ -1,5 +1,7 @@
 #pragma once
 
+class IServer;
+
 namespace gm
 {
 	class pointers
@@ -19,6 +21,10 @@ namespace gm
 		void* m_allow_all_invalid_tickets{};
 
 		void* m_concommand_is_blocked{};
+
+		void* m_check_for_duplicate_steamid{};
+
+		IServer* m_sv{};
 	};
 
 	inline pointers* g_pointers{};

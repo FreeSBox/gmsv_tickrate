@@ -38,6 +38,56 @@ target_compile_definitions(common PRIVATE
 	"GAME_DLL"
 )
 
+
+add_library(tier1 STATIC
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/bitbuf.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/byteswap.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/characterset.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/checksum_crc.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/checksum_md5.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/checksum_sha1.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/commandbuffer.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/convar.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/datamanager.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/diff.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/generichash.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/ilocalize.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/interface.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/keyvalues.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/kvpacker.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/lzmaDecoder.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/mempool.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/memstack.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/NetAdr.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/splitstring.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/rangecheckedvar.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/reliabletimer.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/stringpool.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/strtools.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/strtools_unicode.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/tier1.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/tokenreader.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/sparsematrix.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/uniqueid.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/utlbuffer.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/utlbufferutil.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/utlstring.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/utlsymbol.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/utlbinaryblock.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/snappy.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/snappy-sinksource.cpp"
+	"${sourcesdk_minimal_SOURCE_DIR}/tier1/snappy-stubs-internal.cpp"
+)
+
+
+target_include_directories(tier1 PRIVATE ${SOURCE_INCLUDES})
+target_compile_definitions(tier1 PRIVATE
+	"RAD_TELEMETRY_DISABLED"
+	"TIER1_STATIC_LIB"
+)
+
+
+
 if (WIN32)
 
 else()

@@ -24,6 +24,7 @@ namespace gm
 		}
 
 		detour_hook_helper::add<hooks::ConCommand_IsBlocked>("ConCommand_IsBlocked", g_pointers->m_concommand_is_blocked);
+		detour_hook_helper::add<hooks::CheckForDuplicateSteamID>("CheckForDuplicateSteamID", g_pointers->m_check_for_duplicate_steamid);
 
 		g_hooking = this;
 	}

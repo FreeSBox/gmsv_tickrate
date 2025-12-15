@@ -32,13 +32,16 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 	"${SRC_DIR}"
 	"${SRC_DIR}/gmod"
 	"${sourcesdk_minimal_SOURCE_DIR}/public"
+	"${sourcesdk_minimal_SOURCE_DIR}/public/tier0"
+	"${sourcesdk_minimal_SOURCE_DIR}/public/tier1"
 	"${sourcesdk_minimal_SOURCE_DIR}/common"
+	"${sourcesdk_minimal_SOURCE_DIR}/engine"
 	"${sourcesdk_minimal_SOURCE_DIR}/game/shared"
 	"${sourcesdk_minimal_SOURCE_DIR}/game/server"
 	#"${sourcesdk_minimal_SOURCE_DIR}/game/client"
 )
 target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE "${SRC_DIR}/common.hpp")
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook common)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE minhook common tier1)
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
 	if (IS_SERVERSIDE)

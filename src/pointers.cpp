@@ -10,6 +10,7 @@ namespace gm
 	void pointers::init_engine()
 	{
 		memory::batch batch;
+		memory::module module("engine");
 
 #if ARCHITECTURE_IS_X86_64
 		batch.add("Steam Auth", "48 8B 95 60 FF FF FF 44", [this](memory::handle ptr) {
@@ -19,6 +20,11 @@ namespace gm
 
 		batch.add("Steam Auth 2", "48 89 C6 4C 89 EF ? ? ? ? ? EB", [this](memory::handle ptr) {
 			m_allow_all_invalid_tickets = ptr.add(6).as<void*>();
+			m_check_for_duplicate_steamid = ptr.sub(0x31).rip().as<void*>();
+		});
+
+		batch.add("CGameServer", "48 8B 3D ? ? ? ? F3 0F 58", [this](memory::handle ptr) {
+			m_sv = ptr.add(3).rip().as<IServer *>();
 		});
 #elif ARCHITECTURE_IS_X86
 		batch.add("Steam Auth", "8B 85 78 FF FF FF C7 04", [this](memory::handle ptr) {
@@ -28,15 +34,21 @@ namespace gm
 
 		batch.add("Steam Auth 2", "89 44 24 08 89 5C 24 04 89 3C 24 E8", [this](memory::handle ptr) {
 			m_allow_all_invalid_tickets = ptr.add(11).as<void*>();
+			m_check_for_duplicate_steamid = ptr.sub(0x38).rip().as<void*>();
+		});
+
+		batch.add("CGameServer", "C7 04 24 ? ? ? ? A3 ? ? ? ? E8 ? ? ? ? D9", [this](memory::handle ptr) {
+			m_sv = *ptr.add(3).as<IServer **>();
 		});
 #endif
 
-		batch.run(memory::module("engine"));
+		batch.run(module);
 	}
 
 	void pointers::init_server()
 	{
 		memory::batch batch;
+		memory::module module("server");
 
 #if ARCHITECTURE_IS_X86_64
 		batch.add("ConCommand_IsBlocked", "48 8B 00 80 78 ? ? 75 ? 48 8B 05", [this](memory::handle ptr) {
@@ -48,7 +60,7 @@ namespace gm
 		});
 #endif
 
-		batch.run(memory::module("server"));
+		batch.run(module);
 	}
 
 	pointers::pointers()
