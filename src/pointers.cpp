@@ -18,11 +18,6 @@ namespace gm
 			m_allow_wrong_game = ptr.sub(27).as<void*>();
 		});
 
-		batch.add("Steam Auth 2", "48 89 C6 4C 89 EF ? ? ? ? ? EB", [this](memory::handle ptr) {
-			m_allow_all_invalid_tickets = ptr.add(6).as<void*>();
-			m_check_for_duplicate_steamid = ptr.sub(0x31).rip().as<void*>();
-		});
-
 		batch.add("CGameServer", "48 8B 3D ? ? ? ? F3 0F 58", [this](memory::handle ptr) {
 			m_sv = ptr.add(3).rip().as<IServer *>();
 		});
@@ -30,11 +25,6 @@ namespace gm
 		batch.add("Steam Auth", "8B 85 78 FF FF FF C7 04", [this](memory::handle ptr) {
 			m_allow_invalid_ticket = ptr.add(0x3F).as<void*>();
 			m_allow_wrong_game = ptr.sub(0x1D).as<void*>();
-		});
-
-		batch.add("Steam Auth 2", "89 44 24 08 89 5C 24 04 89 3C 24 E8", [this](memory::handle ptr) {
-			m_allow_all_invalid_tickets = ptr.add(11).as<void*>();
-			m_check_for_duplicate_steamid = ptr.sub(0x38).rip().as<void*>();
 		});
 
 		batch.add("CGameServer", "C7 04 24 ? ? ? ? A3 ? ? ? ? E8 ? ? ? ? D9", [this](memory::handle ptr) {

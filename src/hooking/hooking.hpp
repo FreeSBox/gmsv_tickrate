@@ -13,7 +13,6 @@ namespace gm
 	struct hooks
 	{
 		static char* ConCommand_IsBlocked(char* command);
-		static bool CheckForDuplicateSteamID(CSteam3Server* _this, CBaseClient* client);
 	};
 
 	class minhook_keepalive

@@ -13,8 +13,6 @@ namespace gm
 		memory::byte_patch::make(g_pointers->m_allow_wrong_game, {0xE9, 0x74, 0x00, 0x00, 0x00})->apply();
 #endif
 		memory::byte_patch::make(g_pointers->m_allow_invalid_ticket, {0xE9, 0x18, 0x00, 0x00, 0x00})->apply();
-
-		memory::byte_patch::make(g_pointers->m_allow_all_invalid_tickets, {0x90, 0x90, 0x90, 0x90, 0x90})->apply();
 	}
 
 	byte_patch_manager::byte_patch_manager()
