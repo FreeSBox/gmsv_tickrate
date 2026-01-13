@@ -1,8 +1,6 @@
+### gmsv_tickrate
 
-### gmsv_remove_restrictions
+Adds a `_G.GetFrameDelta()` function that returns how many miliseconds it took to simulate the last frame.
 
-Removes a lot of arbitrary restrictions from GMod.
-
-Restrictions removed:
-- Clients cannot connect to `sv_lan 0` servers without Steam authentication.
-- All server side blocked ConCommands.
+> **Note**
+> This was not tested on a 64 bit build.

@@ -12,7 +12,7 @@ namespace gm
 {
 	struct hooks
 	{
-		static char* ConCommand_IsBlocked(char* command);
+		static void _Host_RunFrame(float time);
 	};
 
 	class minhook_keepalive

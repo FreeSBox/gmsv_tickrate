@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 set(IS_SERVERSIDE ON)
 
-project(remove_restrictions CXX)
+project(tickrate CXX)
 
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 

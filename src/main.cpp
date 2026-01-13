@@ -1,15 +1,24 @@
 #include "GarrysMod/Lua/Interface.h"
 
 #include "pointers.hpp"
-#include "byte_patch_manager.hpp"
 #include "hooking/hooking.hpp"
 
+#include <chrono>
 #include <memory>
 
-
 std::unique_ptr<gm::pointers> pointers_instance;
-std::unique_ptr<gm::byte_patch_manager> byte_patch_manager_instance;
 std::unique_ptr<gm::hooking> hooking_instance;
+
+using namespace GarrysMod::Lua;
+
+extern std::chrono::duration<double> frame_delta;
+
+LUA_FUNCTION(GetFrameDelta)
+{
+	LUA->PushNumber(std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(frame_delta).count());
+
+	return 1;
+}
 
 GMOD_MODULE_OPEN()
 {
@@ -18,14 +27,16 @@ GMOD_MODULE_OPEN()
 	pointers_instance = std::make_unique<pointers>();
 	Msg("Pointers initialized.\n");
 
-	byte_patch_manager_instance = std::make_unique<byte_patch_manager>();
-	Msg("Byte Patch Manager initialized.\n");
-	
 	hooking_instance = std::make_unique<hooking>();
 	Msg("Hooking initialized.\n");
 
 	g_hooking->enable();
 	Msg("Hooking enabled.\n");
+
+	LUA->PushSpecial( GarrysMod::Lua::SPECIAL_GLOB );
+	LUA->PushString( "GetFrameDelta" );
+	LUA->PushCFunction( GetFrameDelta );
+	LUA->SetTable( -3 ); // `_G.GetFrameDelta = GetFrameDelta`
 
 	return 0;
 }
@@ -39,9 +50,6 @@ GMOD_MODULE_CLOSE()
 
 	hooking_instance.reset();
 	Msg("Hooking uninitialized.\n");
-
-	byte_patch_manager_instance.reset();
-	Msg("Byte Patch Manager uninitialized.\n");
 
 	pointers_instance.reset();
 	Msg("Pointers uninitialized.\n");
