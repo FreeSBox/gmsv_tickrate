@@ -12,7 +12,7 @@
 #pragma GCC diagnostic ignored "-Wshadow"
 
 
-namespace gm
+namespace gm_tickrate
 {
 	hooking::hooking()
 	{

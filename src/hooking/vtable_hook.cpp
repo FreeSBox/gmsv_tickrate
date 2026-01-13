@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-namespace gm
+namespace gm_tickrate
 {
 	vtable_hook::vtable_hook(void** vft, std::size_t num_funcs) :
 	    m_num_funcs(num_funcs),

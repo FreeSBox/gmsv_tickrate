@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace gm
+namespace gm_tickrate
 {
 	class detour_hook
 	{

@@ -3,7 +3,7 @@
 #include <tier0/dbg.h>
 
 std::chrono::duration<double> frame_delta{};
-namespace gm
+namespace gm_tickrate
 {
 	void hooks::_Host_RunFrame(float time)
 	{

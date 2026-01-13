@@ -6,8 +6,8 @@
 #include <chrono>
 #include <memory>
 
-std::unique_ptr<gm::pointers> pointers_instance;
-std::unique_ptr<gm::hooking> hooking_instance;
+std::unique_ptr<gm_tickrate::pointers> pointers_instance;
+std::unique_ptr<gm_tickrate::hooking> hooking_instance;
 
 using namespace GarrysMod::Lua;
 
@@ -22,7 +22,7 @@ LUA_FUNCTION(GetFrameDelta)
 
 GMOD_MODULE_OPEN()
 {
-	using namespace gm;
+	using namespace gm_tickrate;
 
 	pointers_instance = std::make_unique<pointers>();
 	Msg("Pointers initialized.\n");
@@ -43,7 +43,7 @@ GMOD_MODULE_OPEN()
 
 GMOD_MODULE_CLOSE()
 {
-	using namespace gm;
+	using namespace gm_tickrate;
 
 	g_hooking->disable();
 	Msg("Hooking disabled.\n");

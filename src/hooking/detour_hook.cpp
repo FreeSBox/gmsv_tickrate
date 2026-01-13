@@ -5,7 +5,7 @@
 #include <MinHook.h>
 #include <tier0/dbg.h>
 
-namespace gm
+namespace gm_tickrate
 {
 	detour_hook::detour_hook(std::string name, void* detour) :
 	    m_name(std::move(name)),

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace gm
+namespace gm_tickrate
 {
 	/**
 	 * @brief Hooks vtable functions for a single class instance.

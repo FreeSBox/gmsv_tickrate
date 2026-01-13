@@ -2,7 +2,7 @@
 
 class IServer;
 
-namespace gm
+namespace gm_tickrate
 {
 	class pointers
 	{

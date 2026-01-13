@@ -5,7 +5,7 @@
 
 #include "pointers.hpp"
 
-namespace gm
+namespace gm_tickrate
 {
 	void pointers::init_engine()
 	{

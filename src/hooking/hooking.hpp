@@ -8,7 +8,7 @@
 class CBaseClient;
 class CSteam3Server;
 
-namespace gm
+namespace gm_tickrate
 {
 	struct hooks
 	{
