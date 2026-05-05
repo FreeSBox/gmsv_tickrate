@@ -17,8 +17,8 @@ namespace gm_tickrate
 			m_run_frame = ptr.sub(15).as<void*>();
 		});
 #elif ARCHITECTURE_IS_X86
-		batch.add("_Host_RunFrame", "85 F6 0F 95 45 D7", [this](memory::handle ptr) {
-			m_run_frame = ptr.sub(15).as<void*>();
+		batch.add("_Host_RunFrame", "85 C0 0F 95 45 D7", [this](memory::handle ptr) {
+			m_run_frame = ptr.sub(14).as<void*>();
 		});
 #endif
 
